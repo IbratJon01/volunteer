@@ -16,7 +16,7 @@ public class Volunteer {
     private String volunteerId;
     private String firstName;
     private String lastName;
-    private String photoPath;
+    private String imagePath;
     private String birthDate;
     private String workAndStudent;
     private String email;

@@ -35,7 +35,7 @@ public class VolunteerController {
     @PostMapping
     public ResponseEntity<?> createVolunteer(@RequestBody Volunteer newVolunteer) {
         Optional<Volunteer> existingVolunteer = volunteerRepository.findByVolunteerId(newVolunteer.getVolunteerId());
-
+// @Column(unique = true) // Unique Volunteer ID Validation
         if (existingVolunteer.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Ma'lumot allaqachon mavjud. Yangilash amalga oshirildi.");
         } else {
@@ -55,7 +55,17 @@ public class VolunteerController {
         // Ma'lumotlarni o'zgartirish
         volunteer.setFirstName(volunteerDetails.getFirstName());
         volunteer.setLastName(volunteerDetails.getLastName());
+        volunteer.setAboutMe(volunteerDetails.getAboutMe());
+        volunteer.setPhoneNumber(volunteerDetails.getPhoneNumber());
+        volunteer.setPlace(volunteerDetails.getPlace());
+        volunteer.setHowHelp(volunteerDetails.getHowHelp());
+        volunteer.setImagePath(volunteerDetails.getImagePath());
+        volunteer.setChooseTypeVolunteer(volunteerDetails.getChooseTypeVolunteer());
+        volunteer.setEmail(volunteerDetails.getEmail());
+        volunteer.setWorkAndStudent(volunteerDetails.getWorkAndStudent());
         volunteer.setBirthDate(volunteerDetails.getBirthDate());
+        volunteer.setLanguage(volunteerDetails.getLanguage());
+        volunteer.setScore(volunteerDetails.getScore());
         // Qolgan ma'lumotlarni ham o'zgartirish
 
         return volunteerRepository.save(volunteer);
