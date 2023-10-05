@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -26,10 +27,15 @@ public class VolunteerController {
         return volunteerRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Volunteer getVolunteerById(@PathVariable Long id) {
-        return volunteerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", id));
+//    @GetMapping("/{id}")
+//    public Volunteer getVolunteerById(@PathVariable Long id) {
+//        return volunteerRepository.findById(id)
+//                .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", id));
+//    }
+    @GetMapping("/{volunteerId}")
+    public Volunteer getVolunteerByVolunteerId(@PathVariable String volunteerId) {
+        return volunteerRepository.findByVolunteerId(volunteerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Volunteer", "id", volunteerId));
     }
 
     @PostMapping
@@ -44,6 +50,11 @@ public class VolunteerController {
         }
     }
 
+    @GetMapping("/subscription-statistics")
+    public ResponseEntity<List<Map<String, Object>>> getSubscriptionStatisticsWithSubscribers() {
+        List<Map<String, Object>> statisticsWithSubscribers = volunteerService.getSubscriptionStatisticsWithSubscribers();
+        return ResponseEntity.ok(statisticsWithSubscribers);
+    }
 
 
 
