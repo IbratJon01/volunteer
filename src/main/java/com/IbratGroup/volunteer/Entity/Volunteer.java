@@ -1,10 +1,7 @@
 package com.IbratGroup.volunteer.Entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -21,6 +18,8 @@ public class Volunteer {
     private String workAndStudent;
     private String email;
     private String place;
+    @OneToOne
+    private Address address;
     private String phoneNumber;
     private String aboutMe;
     private String chooseTypeVolunteer;
