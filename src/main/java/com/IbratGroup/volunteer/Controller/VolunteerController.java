@@ -1,5 +1,6 @@
 package com.IbratGroup.volunteer.Controller;
 
+import com.IbratGroup.volunteer.Entity.Address;
 import com.IbratGroup.volunteer.Entity.Volunteer;
 import com.IbratGroup.volunteer.Exception.ResourceNotFoundException;
 import com.IbratGroup.volunteer.Repository.VolunteerRepository;
@@ -69,6 +70,19 @@ public class VolunteerController {
         volunteer.setAboutMe(volunteerDetails.getAboutMe());
         volunteer.setPhoneNumber(volunteerDetails.getPhoneNumber());
         volunteer.setPlace(volunteerDetails.getPlace());
+        // Boshqa ma'lumotlarni ham o'zgartirish
+
+        // Address obyektini yangilash
+        Address address = volunteer.getAddress();
+        if (address == null) {
+            address = new Address();
+            volunteer.setAddress(address);
+        }
+        address.setCountry(volunteerDetails.getAddress().getCountry());
+        address.setRegion(volunteerDetails.getAddress().getRegion());
+        address.setDistrict(volunteerDetails.getAddress().getDistrict());
+        address.setNeighborhood(volunteerDetails.getAddress().getNeighborhood());
+
         volunteer.setHowHelp(volunteerDetails.getHowHelp());
         volunteer.setImagePath(volunteerDetails.getImagePath());
         volunteer.setChooseTypeVolunteer(volunteerDetails.getChooseTypeVolunteer());
@@ -77,10 +91,12 @@ public class VolunteerController {
         volunteer.setBirthDate(volunteerDetails.getBirthDate());
         volunteer.setLanguage(volunteerDetails.getLanguage());
         volunteer.setScore(volunteerDetails.getScore());
+
         // Qolgan ma'lumotlarni ham o'zgartirish
 
         return volunteerRepository.save(volunteer);
     }
+
 
     @GetMapping("/search")
     public ResponseEntity<List<Volunteer>> searchUsersByUsername(@RequestParam String userName) {
