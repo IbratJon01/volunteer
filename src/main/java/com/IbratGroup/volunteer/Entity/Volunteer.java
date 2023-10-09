@@ -18,7 +18,8 @@ public class Volunteer {
     private String workAndStudent;
     private String email;
     private String place;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
     private String phoneNumber;
     private String aboutMe;
